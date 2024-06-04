@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen w-full bg-gradient-to-b from-[#7AB2FF] to-[#FFF] flex justify-center items-center relative overflow-x-hidden">
         <AppRouterCacheProvider>
           {children}
         </AppRouterCacheProvider>
