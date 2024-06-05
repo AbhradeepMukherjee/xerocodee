@@ -59,7 +59,7 @@ To get started with the project, follow these steps:
 - Integrated backend features by adding `userModel` and `authController` to manage backend functionalities.
 - Implemented signup, login, isLoggedIn, and logout functionalities to enable user authentication.
 - Integrated login with GitHub for enhanced user authentication options.
-- Couldn't integrate login with Google due to the unavailability of a Google Cloud Provider account.
+- Couldn't integrate login with Google due to the unavailability of a Google Cloud Platform account.
 - Established frontend-backend connectivity by connecting frontend components with their respective backend counterparts.
 - Utilized Context API to define authentication status, indicating whether the user is logged in or not.
 - Ensured responsiveness of login, signup, onboardingone, onboardingtwo, and onboardingthree pages.
