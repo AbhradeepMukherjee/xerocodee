@@ -1,5 +1,33 @@
 # XeroCodee
 
+This project aims to create a Next.js login application utilizing Appwrite as the backend and Material-UI for the user interface. The project is configured with Babel, Webpack to optimize the build process for efficient development. It follows the MVC (Model-View-Controller) pattern for better organization and scalability.
+
+## Features
+
+- Integration of Appwrite as the backend service
+- Implementation of Material-UI for the user interface components
+- Configuration of project build using Babel or Webpack
+- Adherence to the MVC pattern for structured architecture
+
+## Project Structure
+
+The project architecture follows the MVC pattern:
+
+- `components`: Contains React components
+- `config`: Stores configuration files
+- `controllers`: Houses API controllers
+- `models`: Defines data models
+- `pages`: Contains pages built with Next.js
+
+## Getting Started
+
+To get started with the project, follow these steps:
+
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Configure environment variables using `.env` file.
+4. Run the development server using `npm run dev`.
+
 ## Change Log
 
 ### #1: Initial project setup and configuration
@@ -24,3 +52,46 @@
 - Integrated Material-UI icons to enhance the visual appeal of the components
 - Leveraged Material-UI components and styles for building pages within the Next.js framework
 - Implemented routing functionality within the application using Next.js routing capabilities
+
+### #3. Implemented backend features, login/signup functionalities, GitHub login integration, frontend-backend connectivity, Context API for authentication, and ensured responsiveness.
+
+- Integrated backend features by adding `userModel` and `authController` to manage backend functionalities.
+- Implemented signup, login, isLoggedIn, and logout functionalities to enable user authentication.
+- Integrated login with GitHub for enhanced user authentication options.
+- Couldn't integrate login with Google due to the unavailability of a Google Cloud Provider account.
+- Established frontend-backend connectivity by connecting frontend components with their respective backend counterparts.
+- Utilized Context API to define authentication status, indicating whether the user is logged in or not.
+- Ensured responsiveness of login, signup, onboardingone, onboardingtwo, and onboardingthree pages.
+
+### #4. Changes in `.babelrc`, `babel.config.js`, and `tsconfig.json`
+
+- Updated `.babelrc` and `babel.config.js` files for Babel configuration adjustments.
+- Modified `tsconfig.json` to accommodate changes in TypeScript configuration.
+
+### #5. Handling ESLint Configuration
+
+- Configured ESLint to extend the Next.js core web vitals configuration.
+- Reviewed ESLint rules provided by Next.js and identified conflicts with project setup.
+- Overrode specific ESLint rules to address conflicts related to React Hooks usage.
+- Explored options to customize ESLint configuration to better suit project requirements.
+- Documented the process for handling ESLint configuration conflicts and overrides.
+
+# Challenges Faced
+
+During the development of this project, I encountered the following challenges:
+
+## Google Authentication Integration
+
+I faced difficulty implementing authentication with Google due to the requirement of a Google Cloud Platform account. Since I didn't have access to a Google Cloud Platform account, I couldn't proceed with integrating Google authentication into the application.
+
+## Linting Issues during Deployment
+
+While deploying the project, I encountered linting issues related to ESLint configuration conflicts. These conflicts arose due to differences between the project's setup and the default ESLint rules provided by Next.js. Resolving these conflicts required overriding specific ESLint rules related to React Hooks usage to ensure compatibility with the project's architecture.
+
+## Resolution
+
+- To address the linting issues during deployment, I reviewed the ESLint configuration provided by Next.js and identified the conflicting rules. I then customized the ESLint configuration to override the conflicting rules, ensuring consistency and compatibility with the project setup. This process involved careful consideration of the project requirements and documentation provided by Next.js for handling ESLint configuration conflicts.
+
+- To overcome this challenge, I explored alternative authentication options and focused on implementing authentication with other providers such as GitHub using the available resources and documentation provided by the respective authentication service.
+
+
