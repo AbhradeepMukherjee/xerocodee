@@ -101,3 +101,32 @@ While deploying the project, I encountered linting issues related to ESLint conf
 
 ![signup](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/655169c2-2c7f-4e35-a0a2-f61ef75770c3)
 
+- Login Page:
+
+![login](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/71cfd91d-2bdf-405d-9b8f-afa5bd54ec65)
+
+- Onboarding-screen-1:
+
+![onboardingscreen1](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/58f716cc-09f5-496f-a712-b5e3f4320d51)
+
+- Onboarding-screen-2:
+
+![onboardingscreen2](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/e5db1c08-fc40-4bfe-a143-8d9d08cdbf43)
+
+-Onboarding-screen-3:
+
+![onboardingscreen3(1)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/13de1b7c-bc87-4fdc-8f59-56d865ac68fd)
+
+![onboardingscreen3(2)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/cfe0e271-a889-4359-8073-e132ef5172d2)
+
+- Landing Page:
+
+![landing-page(1)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/bc765721-5ca2-49ec-b695-f5b4421e0409)
+
+![landing-page(2)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/aa177f50-baf2-4380-be1a-41742143e7d9)
+
+
+
+
+
+
