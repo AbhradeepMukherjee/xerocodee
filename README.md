@@ -121,7 +121,7 @@ While deploying the project, I encountered linting issues related to ESLint conf
 
 - Landing Page:
 
-![landing-page(1)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/bc765721-5ca2-49ec-b695-f5b4421e0409)
+![landing-page(1)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/7a9bdbe3-fd25-4cf9-9bb1-ffed25dd8987)
 
 ![landing-page(2)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/aa177f50-baf2-4380-be1a-41742143e7d9)
 
