@@ -113,7 +113,7 @@ While deploying the project, I encountered linting issues related to ESLint conf
 
 ![onboardingscreen2](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/e5db1c08-fc40-4bfe-a143-8d9d08cdbf43)
 
--Onboarding-screen-3:
+- Onboarding-screen-3:
 
 ![onboardingscreen3(1)](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/13de1b7c-bc87-4fdc-8f59-56d865ac68fd)
 
