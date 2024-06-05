@@ -18,7 +18,7 @@ export default function Onboardingtwo() {
     >
       <Typography
         variant="h5"
-        fontSize="28px"
+        fontSize={{ xs: "24px", md: "28px" }}
         fontWeight={700}
         fontFamily="nunito"
         align="center"
@@ -28,10 +28,15 @@ export default function Onboardingtwo() {
         Welcome User!
       </Typography>
       <Stack
-        mt={10}
-        direction="row"
+        mt={4}
+        alignItems="center"
+        gap={2}
+        direction={{ xs: "column", md: "row" }}
         display="flex"
-        justifyContent="space-evenly"
+        sx={{
+          flexDirection: {xs: "column", md: "row"}
+        }}
+        justifyContent="space-around"
       >
         <Button
           variant="contained"
@@ -54,31 +59,36 @@ export default function Onboardingtwo() {
               backgroundColor: "#1F64FF",
             },
           }}
-          onClick={()=>router.push("/onboardingthree")}
+          onClick={() => {
+            router.push("/onboardingthree");
+          }}
         >
           Self Hosting
         </Button>
         <Button
-          variant="contained"
-          type="submit"
-          sx={{
-            bgcolor: "#FFF",
-            color: "black",
-            fontSize: "16px",
-            fontFamily: "nunito",
-            textTransform: "capitalize",
-            boxShadow: 0,
-            border: "1px solid #C0C0C0",
-            width: "200px",
-            "&:hover": {
-              backgroundColor: "white",
-              boxShadow: 0,
-            },
-            "&:focus": {
-              color: "#FFF",
-              backgroundColor: "#1F64FF",
-            },
-          }}
+           variant="contained"
+           type="submit"
+           sx={{
+             bgcolor: "#FFF",
+             color: "black",
+             fontSize: "16px",
+             fontFamily: "nunito",
+             textTransform: "capitalize",
+             boxShadow: 0,
+             border: "1px solid #C0C0C0",
+             width: "200px",
+             "&:hover": {
+               backgroundColor: "white",
+               boxShadow: 0,
+             },
+             "&:focus": {
+               color: "#FFF",
+               backgroundColor: "#1F64FF",
+             },
+           }}
+           onClick={() => {
+             router.push("/onboardingthree");
+           }}
         >
           XeroCodee Hosting
         </Button>

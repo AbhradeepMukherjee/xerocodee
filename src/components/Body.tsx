@@ -1,7 +1,8 @@
 "use client";
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import XeroCodee from "./XeroCodee";
+import appwriteService from "@/controllers/authController";
 export default function Body({selectedMenuItem}) {
 
   const renderContent = () => {

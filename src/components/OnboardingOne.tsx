@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 export default function OnboardingOne() {
   const [isOrganization, setIsOrganization] = useState("");
+  const router = useRouter();
   return (
     <Box
       sx={{
@@ -17,7 +19,7 @@ export default function OnboardingOne() {
     >
       <Typography
         variant="h5"
-        fontSize="28px"
+        fontSize={{ xs: "24px", md: "28px" }}
         fontWeight={700}
         fontFamily="nunito"
         align="center"
@@ -28,8 +30,13 @@ export default function OnboardingOne() {
       </Typography>
       <Stack
         mt={4}
-        direction="row"
+        alignItems="center"
+        gap={2}
+        direction={{ xs: "column", md: "row" }}
         display="flex"
+        sx={{
+          flexDirection: {xs: "column", md: "row"}
+        }}
         justifyContent="space-around"
       >
         <Button
@@ -53,7 +60,10 @@ export default function OnboardingOne() {
               backgroundColor: "#1F64FF",
             },
           }}
-          onClick={()=>setIsOrganization("")}
+          onClick={() => {
+            setIsOrganization("");
+            router.push("/onboardingtwo");
+          }}
         >
           Developer
         </Button>
@@ -108,7 +118,9 @@ export default function OnboardingOne() {
           Company
         </Button>
       </Stack>
-      {isOrganization==""?<></>: isOrganization=="organization" ? (
+      {isOrganization == "" ? (
+        <></>
+      ) : isOrganization == "organization" ? (
         <Stack alignSelf="center" direction="row" mt={10} gap={2}>
           <TextField
             id="outlined-basic"
@@ -141,6 +153,7 @@ export default function OnboardingOne() {
             variant="contained"
             type="submit"
             sx={{ bgcolor: "#1F64FF", color: "white", fontSize: "14px" }}
+            onClick={() => router.push("/onboardingtwo")}
           >
             Submit
           </Button>
@@ -178,6 +191,7 @@ export default function OnboardingOne() {
             variant="contained"
             type="submit"
             sx={{ bgcolor: "#1F64FF", color: "white", fontSize: "14px" }}
+            onClick={() => router.push("/onboardingtwo")}
           >
             Submit
           </Button>

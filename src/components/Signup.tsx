@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React, { FormEvent, useState } from "react";
+import { GitHub, Google, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Stack,
@@ -12,37 +12,88 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
+import useAuth from "@/context/useAuth";
+import appwriteService from "@/controllers/authController";
+import { useRouter } from "next/navigation";
 export default function SignUp() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    firstname: "",
+    lastname: "",
+  });
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  const { setAuthStatus } = useAuth();
+
+  const createUser = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("created user");
+
+    try {
+      console.log(formData);
+      if (formData.password !== confirmPassword) {
+        setError("Wrong Password");
+        return;
+      }
+      const userData = await appwriteService.createUserAccount(formData);
+      if (userData) {
+        console.log(userData);
+        setAuthStatus(true);
+        router.push("/onboardingone");
+      }
+    } catch (error: any) {
+      setError(error.message);
+      console.log(error);
+    }
+  };
+  const handleSignupWithGithub = () => {
+    appwriteService.loginWithGithub();
+  }
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const handleToggleConfirmPassword = () => {
-    setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
+    setShowConfirmPassword(
+      (prevShowConfirmPassword) => !prevShowConfirmPassword
+    );
   };
   return (
     <Stack
       direction="row"
       sx={{
-        height: "90%",
-        padding: "7px",
-        width: "55%",
+        height: {xs: "85%", md: "90%"},
+        padding: { md: "7px", xs: "3px" },
+        width: {lg: "60%" ,md:"80%"},
         bgcolor: "white",
         border: "2px solid gray",
         borderRadius: "0 20px 20px 20px",
       }}
     >
-      <Box paddingY={4} paddingX={3} width="50%">
+      <Box
+        sx={{
+          py: { xs: 2, md: 4 },
+          px: { xs: 1, md: 3 },
+          width: { xs: "100%", md: "50%" },
+        }}
+      >
         <Stack direction="column">
           <Typography
             variant="h5"
-            fontSize="32px"
-            fontWeight={700}
-            fontFamily="nunito"
-            align="center"
             component="h1"
-            color="black"
+            sx={{
+              fontSize: { xs: "24px", md: "32px" },
+              fontWeight: 700,
+              fontFamily: "nunito",
+              textAlign: "center",
+              color: "black",
+            }}
           >
             Hello!
           </Typography>
@@ -50,14 +101,19 @@ export default function SignUp() {
             sx={{
               display: "flex",
               alignItems: "center",
-              width: "100%",
+              width: "100%" ,
             }}
           >
             <Divider sx={{ flexGrow: 1, borderColor: "gray" }} />
             <Typography
               variant="subtitle1"
-              sx={{ mx: "2.5px", color: "gray", fontWeight: 500 }}
-              fontSize="12px"
+              alignContent="center"
+              sx={{
+                mx: { xs: "1px", md: "2.5px" },
+                color: "gray",
+                fontWeight: 500,
+                fontSize: { xs: "10px", md: "12px" },
+              }}
             >
               Create Your Account
             </Typography>
@@ -73,104 +129,111 @@ export default function SignUp() {
             autoComplete="off"
             gap={3}
             noValidate
+            onSubmit={createUser}
           >
             <TextField
-              id="outlined-basic"
+              id="firstname"
               label="First Name"
               variant="outlined"
               type="text"
               size="small"
               fullWidth
               required
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
-              InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
-              }}
+              value={formData.firstname}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, firstname: e.target.value }))
+              }
             />
             <TextField
-              id="outlined-basic"
+              id="lastname"
               label="Last Name"
               variant="outlined"
               type="text"
               size="small"
               fullWidth
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
-              InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
-              }}
+              value={formData.lastname}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, lastname: e.target.value }))
+              }
             />
             <TextField
-              id="outlined-basic"
+              id="email"
               label="Email-Id"
               variant="outlined"
               type="email"
               size="small"
               fullWidth
               required
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
-              InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
-              }}
+              value={formData.email}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, email: e.target.value }))
+              }
             />
             <TextField
-              id="outlined-basic"
+              id="password"
               label="Password"
               variant="outlined"
               type={showPassword ? "text" : "password"}
               size="small"
               fullWidth
               required
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
               InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={handleTogglePassword}>
@@ -179,30 +242,34 @@ export default function SignUp() {
                   </InputAdornment>
                 ),
               }}
+              value={formData.password}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, password: e.target.value }))
+              }
             />
             <TextField
-              id="outlined-basic"
+              id="confirm password"
               label="Confirm Password"
               variant="outlined"
               type={showConfirmPassword ? "text" : "password"}
               size="small"
               fullWidth
               required
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
               InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={handleToggleConfirmPassword}>
@@ -211,11 +278,17 @@ export default function SignUp() {
                   </InputAdornment>
                 ),
               }}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <Button
               variant="contained"
               type="submit"
-              sx={{ bgcolor: "#1F64FF", color: "white", fontSize: "16px" }}
+              sx={{
+                bgcolor: "#1F64FF",
+                color: "white",
+                fontSize: { xs: "14px", md: "16px" },
+              }}
               fullWidth
             >
               Sign up
@@ -223,12 +296,13 @@ export default function SignUp() {
             <Typography
               fontFamily="nunito"
               fontWeight={700}
-              fontSize="14px"
+              fontSize={{ xs: "12px", md: "14px" }}
               align="center"
               color="gray"
             >
               OR
             </Typography>
+
             <Box display="flex" justifyContent={"space-between"}>
               <Button
                 variant="contained"
@@ -236,7 +310,7 @@ export default function SignUp() {
                 sx={{
                   bgcolor: "white",
                   color: "gray",
-                  fontSize: "14px",
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   "&:hover": {
                     backgroundColor: "white",
@@ -244,7 +318,7 @@ export default function SignUp() {
                   textTransform: "capitalize",
                 }}
               >
-                Sign Up With Google
+                Sign Up With Google{"  "}<Google/>
               </Button>
               <Button
                 variant="contained"
@@ -252,27 +326,29 @@ export default function SignUp() {
                 sx={{
                   bgcolor: "white",
                   color: "gray",
-                  fontSize: "14px",
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   "&:hover": {
                     backgroundColor: "white",
                   },
                   textTransform: "capitalize",
                 }}
+                onClick={handleSignupWithGithub}
               >
-                Sign Up With Github
+                Sign Up With Github{"  "}<GitHub/>
               </Button>
             </Box>
+
             <Box alignSelf="center">
               <Typography
                 variant="body1"
                 color="gray"
-                fontSize="12px"
+                fontSize={{ xs: "10px", md: "12px" }}
                 fontFamily="nunito"
               >
                 Already have an Account?{" "}
                 <Link
-                  href="#"
+                  href="/login"
                   color="#1F64FF"
                   underline="none"
                   sx={{ fontWeight: 600 }}
@@ -293,7 +369,11 @@ export default function SignUp() {
         height="80%"
         alignSelf="center"
       />
-      <Box width="50%" position="relative">
+      <Box
+        width="50%"
+        position="relative"
+        sx={{ display: { xs: "none", md: "block" } }}
+      >
         <Box
           sx={{
             position: "absolute",

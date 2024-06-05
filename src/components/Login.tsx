@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React, { FormEvent, useState } from "react";
+import { GitHub, Google, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -12,9 +12,38 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
+import appwriteService from "@/controllers/authController";
+import useAuth from "@/context/useAuth";
+import { useRouter } from "next/navigation";
+import { account } from "@/models/userModel";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const { setAuthStatus } = useAuth();
+  const router = useRouter();
+  const loginUser = async (e: any) => {
+    e.preventDefault();
+    console.log("logged in user");
+    try {
+      const session = await appwriteService.login(loginData);
+      console.log(session);
+      if (session) {
+        setAuthStatus(true);
+        router.push("/");
+      }
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    }
+  };
 
+  const handleLoginWithGithub = () => {
+    appwriteService.loginWithGithub();
+  }
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -22,24 +51,32 @@ export default function Login() {
     <Stack
       direction="row"
       sx={{
-        height: "75%",
-        padding: "7px",
-        width: "55%",
+        height: { md: "85%", xs: "65%" },
+        padding: { md: "7px", xs: "3px" },
+        width: {lg: "60%" ,md:"80%"},
         bgcolor: "white",
         border: "2px solid gray",
         borderRadius: "0 20px 20px 20px",
       }}
     >
-      <Box paddingY={7} paddingX={3} width="50%">
+      <Box
+        sx={{
+          py: { xs: 2, md: 4 },
+          px: { xs: 1, md: 3 },
+          width: { xs: "100%", md: "50%" },
+        }}
+      >
         <Stack direction="column">
           <Typography
             variant="h5"
-            fontSize="32px"
-            fontWeight={700}
-            fontFamily="nunito"
-            align="center"
+            sx={{
+              fontSize: { xs: "24px", md: "32px" },
+              fontWeight: 700,
+              fontFamily: "nunito",
+              textAlign: "center",
+              color: "black",
+            }}
             component="h1"
-            color="black"
           >
             Welcome!
           </Typography>
@@ -53,8 +90,12 @@ export default function Login() {
             <Divider sx={{ flexGrow: 1, borderColor: "gray" }} />
             <Typography
               variant="subtitle1"
-              sx={{ mx: "2.5px", color: "gray", fontWeight: 500 }}
-              fontSize="12px"
+              sx={{
+                mx: { xs: "1px", md: "2.5px" },
+                color: "gray",
+                fontWeight: 500,
+                fontSize: { xs: "10px", md: "12px" },
+              }}
             >
               Login To Your Account
             </Typography>
@@ -70,55 +111,58 @@ export default function Login() {
             autoComplete="off"
             gap={3}
             noValidate
+            onSubmit={loginUser}
           >
             <TextField
-              id="outlined-basic"
+              id="email"
               label="Email-Id"
               variant="outlined"
               type="email"
               size="small"
               fullWidth
               required
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
-              InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
-              }}
+              value={loginData.email}
+              onChange={(e) =>
+                setLoginData((prev) => ({ ...prev, email: e.target.value }))
+              }
             />
             <TextField
-              id="outlined-basic"
+              id="password"
               label="Password"
               variant="outlined"
               type={showPassword ? "text" : "password"}
               size="small"
               fullWidth
               required
-              InputLabelProps={{
-                style: {
-                  fontSize: "14px",
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontSize: { xs: "12px", md: "14px" },
+                  fontFamily: "nunito",
+                  paddingLeft: "8px",
+                  paddingRight: "8px",
+                },
+                "& .MuiInputBase-root": {
+                  fontSize: { xs: "12px", md: "14px" },
                   fontFamily: "nunito",
                   paddingLeft: "8px",
                   paddingRight: "8px",
                 },
               }}
               InputProps={{
-                style: {
-                  fontSize: "14px",
-                  fontFamily: "nunito",
-                  paddingLeft: "8px",
-                  paddingRight: "8px",
-                },
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={handleTogglePassword}>
@@ -127,11 +171,19 @@ export default function Login() {
                   </InputAdornment>
                 ),
               }}
+              value={loginData.password}
+              onChange={(e) =>
+                setLoginData((prev) => ({ ...prev, password: e.target.value }))
+              }
             />
             <Button
               variant="contained"
               type="submit"
-              sx={{ bgcolor: "#1F64FF", color: "white", fontSize: "16px" }}
+              sx={{
+                bgcolor: "#1F64FF",
+                color: "white",
+                fontSize: { xs: "14px", md: "16px" },
+              }}
               fullWidth
             >
               Login
@@ -139,7 +191,7 @@ export default function Login() {
             <Typography
               fontFamily="nunito"
               fontWeight={700}
-              fontSize="14px"
+              fontSize={{ xs: "12px", md: "14px" }}
               align="center"
               color="gray"
             >
@@ -151,44 +203,61 @@ export default function Login() {
                 type="submit"
                 sx={{
                   bgcolor: "white",
-                  color: "gray",
-                  fontSize: "14px",
-                  fontFamily: "nunito",
                   "&:hover": {
                     backgroundColor: "white",
                   },
-                  textTransform: "capitalize",
                 }}
               >
-                Login With Google
+                <Typography
+                  sx={{
+                    color: "gray",
+                    fontSize: { xs: "12px", lg: "14px" },
+                    fontFamily: "nunito",
+                    "&:hover": {
+                      backgroundColor: "white",
+                    },
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Login With Google{" "}<Google/>
+                </Typography>
               </Button>
               <Button
                 variant="contained"
                 type="submit"
                 sx={{
                   bgcolor: "white",
-                  color: "gray",
-                  fontSize: "14px",
-                  fontFamily: "nunito",
                   "&:hover": {
                     backgroundColor: "white",
-                  },
-                  textTransform: "capitalize",
+                  }
                 }}
+                onClick={handleLoginWithGithub}
               >
-                Login With Github
+                <Typography
+                  sx={{
+                    color: "gray",
+                    fontSize: { xs: "12px", lg: "14px" },
+                    fontFamily: "nunito",
+                    "&:hover": {
+                      backgroundColor: "white",
+                    },
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Login With Github{" "}<GitHub/>
+                </Typography>
               </Button>
             </Box>
             <Box alignSelf="center">
               <Typography
                 variant="body1"
                 color="gray"
-                fontSize="12px"
+                fontSize={{ xs: "10px", md: "12px" }}
                 fontFamily="nunito"
               >
                 Don&apos;t have an Account?{" "}
                 <Link
-                  href="#"
+                  href="/signup"
                   color="#1F64FF"
                   underline="none"
                   sx={{ fontWeight: 600 }}
@@ -205,11 +274,16 @@ export default function Login() {
         sx={{
           border: "1px solid",
           borderColor: "#DDE0E9",
+          display: { xs: "none", md: "block" },
         }}
         height="80%"
         alignSelf="center"
       />
-      <Box width="50%" position="relative">
+      <Box
+        width="50%"
+        position="relative"
+        sx={{ display: { xs: "none", md: "block" } }}
+      >
         <Box
           sx={{
             position: "absolute",
