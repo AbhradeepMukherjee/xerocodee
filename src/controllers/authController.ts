@@ -41,8 +41,8 @@ export class AppwriteService {
     try {
       account.createOAuth2Session(
         OAuthProvider.Github,
-        "http://localhost:3000",
-        "http://localhost:3000/fail"
+        "https://xerocodee-lilac.vercel.app/",
+        "https://xerocodee-lilac.vercel.app/fail"
       )
     } catch (error: any) {
       throw error;
