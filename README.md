@@ -27,6 +27,7 @@ To get started with the project, follow these steps:
 2. Install dependencies using `npm install`.
 3. Configure environment variables using `.env` file.
 4. Run the development server using `npm run dev`.
+5. Create a new account by signing up with a new first name, last name, email, and password (atleast 8 characters). Alternatively, for quick login, use the pre-signed-up email "user@test.com" and password "123123123".
 
 ## Change Log
 
