@@ -17,3 +17,10 @@
   - `controllers`: For API controllers
   - `models`: For data models
 - Added empty `.env` and `.sample.env` files for environment variables
+
+### #2. Designed and implemented Material-UI for UI Components
+
+- Utilized Material-UI library to design and develop UI components
+- Integrated Material-UI icons to enhance the visual appeal of the components
+- Leveraged Material-UI components and styles for building pages within the Next.js framework
+- Implemented routing functionality within the application using Next.js routing capabilities
