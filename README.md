@@ -95,4 +95,9 @@ While deploying the project, I encountered linting issues related to ESLint conf
 
 - To overcome this challenge, I explored alternative authentication options and focused on implementing authentication with other providers such as GitHub using the available resources and documentation provided by the respective authentication service.
 
+### Screenshots: 
+
+- Sign Up Page:
+
+![signup](https://github.com/AbhradeepMukherjee/xerocodee/assets/132974862/655169c2-2c7f-4e35-a0a2-f61ef75770c3)
 
